@@ -49,7 +49,7 @@ class Menu {
         window.localStorage[Menu.GAME_STATE] = Menu.IN_GAME_TWO;
       });
     flex
-      ..append(one)
+//      ..append(one)
       ..append(two);
     
     document.querySelector("#container")
