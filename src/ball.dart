@@ -26,16 +26,18 @@ class Ball {
     else
       this._decallage_y += 40;
     this._last_x = this._x;
-    this.tick_increase_speed = new Timer.periodic(new Duration(seconds: 1), (Timer timer) {
-      if (this._decallage_x.isNegative)
-        this._decallage_x -= 2;
-      else 
-        this._decallage_x += 2;
-      if (this._decallage_y.isNegative)
-        this._decallage_y -= 2;
-      else
-        this._decallage_y += 2;
-    });
+    this.tick_increase_speed = new Timer.periodic(new Duration(seconds: 1), (Timer timer) => this.increase_ball_speed(timer));
+  }
+  
+  void increase_ball_speed(Timer timer) {
+    if (this._decallage_x.isNegative)
+      this._decallage_x -= 2;
+    else 
+      this._decallage_x += 2;
+    if (this._decallage_y.isNegative)
+      this._decallage_y -= 2;
+    else
+      this._decallage_y += 2;
   }
 
   void draw(CanvasRenderingContext2D ctx) {

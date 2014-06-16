@@ -278,6 +278,31 @@ var $$ = {};
   }, "call$0", "main$closure", 0, 0, 0],
   Ball: {
     "^": "Object;_x,_y,_last_x,_width_height,_decallage_x,_decallage_y,tick_increase_speed",
+    increase_ball_speed$1: function(timer) {
+      var t1, t2;
+      t1 = J.get$isNegative$n(this._decallage_x);
+      t2 = this._decallage_x;
+      if (t1) {
+        if (typeof t2 !== "number")
+          return t2.$sub();
+        this._decallage_x = t2 - 2;
+      } else {
+        if (typeof t2 !== "number")
+          return t2.$add();
+        this._decallage_x = t2 + 2;
+      }
+      t1 = J.get$isNegative$n(this._decallage_y);
+      t2 = this._decallage_y;
+      if (t1) {
+        if (typeof t2 !== "number")
+          return t2.$sub();
+        this._decallage_y = t2 - 2;
+      } else {
+        if (typeof t2 !== "number")
+          return t2.$add();
+        this._decallage_y = t2 + 2;
+      }
+    },
     update$3: function(canvas, players, ellapsed) {
       var t1, t2, t3;
       t1 = this._y;
@@ -367,30 +392,7 @@ var $$ = {};
   Ball_closure: {
     "^": "Closure:10;this_0",
     call$1: function(timer) {
-      var t1, t2, t3;
-      t1 = this.this_0;
-      t2 = J.get$isNegative$n(t1._decallage_x);
-      t3 = t1._decallage_x;
-      if (t2) {
-        if (typeof t3 !== "number")
-          return t3.$sub();
-        t1._decallage_x = t3 - 2;
-      } else {
-        if (typeof t3 !== "number")
-          return t3.$add();
-        t1._decallage_x = t3 + 2;
-      }
-      t2 = J.get$isNegative$n(t1._decallage_y);
-      t3 = t1._decallage_y;
-      if (t2) {
-        if (typeof t3 !== "number")
-          return t3.$sub();
-        t1._decallage_y = t3 - 2;
-      } else {
-        if (typeof t3 !== "number")
-          return t3.$add();
-        t1._decallage_y = t3 + 2;
-      }
+      return this.this_0.increase_ball_speed$1(timer);
     }
   },
   Ball_update_closure: {
@@ -660,13 +662,21 @@ var $$ = {};
       if (t2 === 40 || t2 === 38)
         player2.up_down = 0;
       if (keyboard_event.keyCode === 32) {
+        t1._ball.tick_increase_speed.cancel$0();
         t2 = !t1._play;
         t1._play = t2;
         if (t2) {
           t1._last = window.performance.now();
+          t1._ball.tick_increase_speed = P.Timer_Timer$periodic(P.Duration$(0, 0, 0, 0, 0, 1), new G.GFOPTP__closure(t1));
           t1.gameLoop$0();
         }
       }
+    }
+  },
+  GFOPTP__closure: {
+    "^": "Closure:10;this_2",
+    call$1: function(timer) {
+      return this.this_2._ball.increase_ball_speed$1(timer);
     }
   },
   GFOPTP__toast_closure: {

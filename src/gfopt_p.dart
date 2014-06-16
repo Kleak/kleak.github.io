@@ -51,9 +51,11 @@ class GFOPTP {
         player2.up_down = 0;
       
       if (keyboard_event.keyCode == 32) {
+        this._ball.tick_increase_speed.cancel();
         this._play = !this._play;
         if (this._play) {
           this._last = this._timestamp();
+          this._ball.tick_increase_speed = new Timer.periodic(new Duration(seconds: 1), (Timer timer) => this._ball.increase_ball_speed(timer));
           gameLoop();
         }
       }
